@@ -12,42 +12,82 @@ body {
     background:#eef2f7;
 }
 
-/* HEADER */
-header {
+/* TOP BAR */
+.topbar {
     background:#2c466b;
     color:white;
-    padding:12px 20px;
+    padding:10px 20px;
     text-align:right;
     font-size:14px;
 }
 
-/* MAIN BOX */
+/* HEADER */
+.header-main {
+    background:white;
+    padding:20px 30px;
+    border-bottom:1px solid #ddd;
+}
+
+.header-flex {
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.header-flex img {
+    width:50px;
+}
+
+.header-title {
+    font-size:28px;
+    color:#2c466b;
+    font-weight:bold;
+}
+
+.header-sub {
+    color:#555;
+    font-size:16px;
+}
+
+.nav {
+    margin-top:15px;
+    color:#2c466b;
+    font-size:14px;
+}
+
+/* CONTAINER */
 .container {
-    max-width:900px;
+    max-width:950px;
     margin:40px auto;
     background:white;
-    padding:25px;
-    border-radius:8px;
+    padding:40px;
+    border-radius:10px;
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* INPUT */
-input {
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border:1px solid #ccc;
-    border-radius:5px;
+/* LOGIN STYLE */
+.login-box {
+    max-width:500px;
+    margin:auto;
 }
 
-/* BUTTON */
+input {
+    width:100%;
+    padding:15px;
+    margin:12px 0;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:15px;
+}
+
 button {
     width:100%;
-    padding:12px;
+    padding:15px;
     background:#2c466b;
     color:white;
     border:none;
-    border-radius:5px;
+    border-radius:6px;
+    font-size:16px;
     font-weight:bold;
     cursor:pointer;
 }
@@ -56,7 +96,6 @@ button {
 .status {
     text-align:center;
     margin:20px 0;
-    font-size:18px;
 }
 
 .success {
@@ -70,12 +109,12 @@ button {
 .grid {
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:10px;
+    gap:12px;
 }
 
 .item {
     background:#f8f9fb;
-    padding:10px;
+    padding:12px;
     border-radius:5px;
 }
 
@@ -96,17 +135,18 @@ button {
 }
 
 .photo img {
-    width:100px;
-    height:120px;
+    width:110px;
+    height:130px;
     border-radius:5px;
     border:2px solid #ccc;
 }
 
+/* RESULT */
 .result-box {
     position:relative;
 }
 
-/* FOOTER (LIKE YOUR IMAGE) */
+/* FOOTER */
 footer {
     background:#f2f2f2;
     padding:30px 20px;
@@ -118,7 +158,6 @@ footer {
     margin:auto;
     display:flex;
     gap:20px;
-    align-items:flex-start;
 }
 
 .footer-logo img {
@@ -133,7 +172,6 @@ footer {
 
 .footer-text p {
     margin:5px 0;
-    color:#444;
 }
 
 .footer-text small {
@@ -148,69 +186,85 @@ footer {
 @media(max-width:700px){
     .grid { grid-template-columns:1fr; }
     .photo { position:static; text-align:center; margin-bottom:15px; }
-    .footer-content { flex-direction:column; align-items:center; text-align:center; }
 }
 </style>
-
 </head>
 
 <body>
 
-<header>
-Top of the page
-</header>
+<!-- TOP BAR -->
+<div class="topbar">Ћирилица ▼</div>
 
-<!-- LOGIN PAGE -->
+<!-- HEADER -->
+<div class="header-main">
+    <div class="header-flex">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Coat_of_arms_of_Serbia.svg/120px-Coat_of_arms_of_Serbia.svg.png">
+        <div>
+            <div class="header-title">eID.gov.rs</div>
+            <div class="header-sub">Портал за електронску идентификацију</div>
+        </div>
+    </div>
+
+    <div class="nav">
+        eГрађанин | Поштић у клауду | Помоћ | Контакти | Назад
+    </div>
+</div>
+
+<!-- LOGIN -->
 <div class="container" id="loginPage">
+<div class="login-box">
 
 <h2>Visa Verification</h2>
 
-<input type="text" id="appId" placeholder="Application ID">
-<input type="text" id="code" placeholder="Verification Code">
+<input id="appId" placeholder="Application ID">
+<input id="code" placeholder="Verification Code">
 
 <button onclick="checkVisa()">Check Visa</button>
+
+<button onclick="fillTest()" style="margin-top:10px;background:#28a745;">
+Use Demo Data
+</button>
 
 <div id="error" class="status"></div>
 
 </div>
+</div>
 
-<!-- RESULT PAGE -->
+<!-- RESULT -->
 <div class="container" id="resultPage" style="display:none;">
 
 <div class="status">
-    <span class="success">✔ VISA APPROVED</span>
+<span class="success">✔ VISA APPROVED</span>
 </div>
 
 <div class="result-box">
 
 <div class="photo">
-    <img id="photo">
+<img src="images/photo.jpg">
 </div>
 
 <h3>Applicant Information</h3>
 <div class="grid">
-    <div class="item"><div class="label">Surname</div><div class="value" id="surname"></div></div>
-    <div class="item"><div class="label">Given Name</div><div class="value" id="name"></div></div>
-    <div class="item"><div class="label">DOB</div><div class="value" id="dob"></div></div>
-    <div class="item"><div class="label">Gender</div><div class="value" id="gender"></div></div>
-    <div class="item"><div class="label">Nationality</div><div class="value" id="nationality"></div></div>
-    <div class="item"><div class="label">Passport</div><div class="value" id="passport"></div></div>
+<div class="item"><div class="label">Surname</div><div class="value" id="surname"></div></div>
+<div class="item"><div class="label">Given Name</div><div class="value" id="name"></div></div>
+<div class="item"><div class="label">DOB</div><div class="value" id="dob"></div></div>
+<div class="item"><div class="label">Gender</div><div class="value" id="gender"></div></div>
+<div class="item"><div class="label">Nationality</div><div class="value" id="nationality"></div></div>
+<div class="item"><div class="label">Passport</div><div class="value" id="passport"></div></div>
 </div>
 
 <h3>Visa Details</h3>
 <div class="grid">
-    <div class="item"><div class="label">Visa ID</div><div class="value" id="visaId"></div></div>
-    <div class="item"><div class="label">Validity</div><div class="value" id="validity"></div></div>
-    <div class="item"><div class="label">Stay</div><div class="value" id="stay"></div></div>
-    <div class="item"><div class="label">Entries</div><div class="value" id="entries"></div></div>
-    <div class="item"><div class="label">Approval</div><div class="value" id="approval"></div></div>
+<div class="item"><div class="label">Visa ID</div><div class="value" id="visaId"></div></div>
+<div class="item"><div class="label">Validity</div><div class="value" id="validity"></div></div>
+<div class="item"><div class="label">Stay</div><div class="value" id="stay"></div></div>
+<div class="item"><div class="label">Entries</div><div class="value" id="entries"></div></div>
+<div class="item"><div class="label">Approval</div><div class="value" id="approval"></div></div>
 </div>
 
 </div>
-
 </div>
 
-<!-- FOOTER (SAME FOR BOTH PAGES) -->
 <footer>
 <div class="footer-content">
 
@@ -223,12 +277,11 @@ Top of the page
 <p>Welcome to Serbia</p>
 
 <small>
-The Website is licensed under a Creative Commons Attribution-
-NonCommercial-No Derivs 3.0 Serbia License. Web project ite.gov.rs
+Creative Commons Attribution-NonCommercial-No Derivs 3.0 Serbia License
 </small>
 
 <p>
-<a href="#">Privacy Policy</a> and <a href="#">terms of Use</a>
+<a href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>
 </p>
 </div>
 
@@ -237,62 +290,65 @@ NonCommercial-No Derivs 3.0 Serbia License. Web project ite.gov.rs
 
 <script>
 
-/* DATABASE */
-const visas = [
-{
-    applicationId:"60912-42144-49935",
-    code:"a15a1170-1566-4418-9d3c-Ja56413",
+const visas = [{
+applicationId:"60912-42144-49935",
+code:"a15a1170-1566-4418-9d3c-Ja56413",
 
-    surname:"MUHAMMAD",
-    name:"KHAN",
-    dob:"01/01/1991",
-    gender:"MALE",
-    nationality:"PAKISTANI",
-    passport:"LM0154192",
+surname:"MUHAMMAD",
+name:"KHAN",
+dob:"01/01/1991",
+gender:"MALE",
+nationality:"PAKISTANI",
+passport:"LM0154192",
 
-    visaId:"DGT303156",
-    validity:"23/04/2026 - 22/07/2026",
-    stay:"90 Days",
-    entries:"Single Entry",
-    approval:"24/04/2026",
+visaId:"DGT303156",
+validity:"23/04/2026 - 22/07/2026",
+stay:"90 Days",
+entries:"Single Entry",
+approval:"24/04/2026"
+}];
 
-    photo:"https://via.placeholder.com/100x120"
+function fillTest(){
+document.getElementById("appId").value="60912-42144-49935";
+document.getElementById("code").value="a15a1170-1566-4418-9d3c-Ja56413";
 }
-];
 
 function checkVisa(){
 
-    const appId = document.getElementById("appId").value.trim();
-    const code = document.getElementById("code").value.trim();
+const appId = document.getElementById("appId").value.trim().toLowerCase();
+const code = document.getElementById("code").value.trim().toLowerCase();
 
-    const visa = visas.find(v => v.applicationId === appId && v.code === code);
+const visa = visas.find(v =>
+v.applicationId.toLowerCase() === appId &&
+v.code.toLowerCase() === code
+);
 
-    if(visa){
+if(visa){
 
-        document.getElementById("loginPage").style.display="none";
-        document.getElementById("resultPage").style.display="block";
+document.getElementById("loginPage").style.display="none";
+document.getElementById("resultPage").style.display="block";
 
-        document.getElementById("surname").innerText = visa.surname;
-        document.getElementById("name").innerText = visa.name;
-        document.getElementById("dob").innerText = visa.dob;
-        document.getElementById("gender").innerText = visa.gender;
-        document.gender;
-        document.getElementById("nationality").innerText = visa.nationality;
-        document.getElementById("passport").innerText = visa.passport;
+document.getElementById("surname").innerText = visa.surname;
+document.getElementById("name").innerText = visa.name;
+document.getElementById("dob").innerText = visa.dob;
+document.getElementById("gender").innerText = visa.gender;
+document.getElementById("nationality").innerText = visa.nationality;
+document.getElementById("passport").innerText = visa.passport;
 
-        document.getElementById("visaId").innerText = visa.visaId;
-        document.getElementById("validity").innerText = visa.validity;
-        document.getElementById("stay").innerText = visa.stay;
-        document.getElementById("entries").innerText = visa.entries;
-        document.getElementById("approval").innerText = visa.approval;
+document.getElementById("visaId").innerText = visa.visaId;
+document.getElementById("validity").innerText = visa.validity;
+document.getElementById("stay").innerText = visa.stay;
+document.getElementById("entries").innerText = visa.entries;
+document.getElementById("approval").innerText = visa.approval;
 
-        document.getElementById("photo").src = visa.photo;
+document.getElementById("error").innerHTML="";
 
-    } else {
-        document.getElementById("error").innerHTML = "❌ No Record Found";
-    }
+} else {
+document.getElementById("error").innerHTML =
+"<span style='color:red;font-weight:bold;'>❌ Record Not Found</span>";
 }
 
+}
 </script>
 
 </body>
